@@ -158,6 +158,8 @@ class ServerCreationService
             'io' => Arr::get($data, 'io'),
             'cpu' => Arr::get($data, 'cpu'),
             'threads' => Arr::get($data, 'threads'),
+            'gpu_driver' => Arr::get($data, 'gpu_driver'),
+            'gpu_devices' => Arr::get($data, 'gpu_devices'),
             'oom_killer' => Arr::get($data, 'oom_killer') ?? false,
             'allocation_id' => Arr::get($data, 'allocation_id'),
             'egg_id' => Arr::get($data, 'egg_id'),

@@ -129,6 +129,8 @@ class BuildModificationServiceTest extends IntegrationTestCase
             'io' => 600,
             'cpu' => 150,
             'threads' => '1,2',
+            'gpu_driver' => 'dri',
+            'gpu_devices' => 'renderD129,card1',
             'disk' => 1024,
             'backup_limit' => null,
             'database_limit' => 10,
@@ -141,6 +143,8 @@ class BuildModificationServiceTest extends IntegrationTestCase
         $this->assertSame(600, $response->io);
         $this->assertSame(150, $response->cpu);
         $this->assertSame('1,2', $response->threads);
+        $this->assertSame('dri', $response->gpu_driver);
+        $this->assertSame('renderD129,card1', $response->gpu_devices);
         $this->assertSame(1024, $response->disk);
         $this->assertSame(0, $response->backup_limit);
         $this->assertSame(10, $response->database_limit);

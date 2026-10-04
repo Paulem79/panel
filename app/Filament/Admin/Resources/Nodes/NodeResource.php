@@ -146,6 +146,10 @@ class NodeResource extends Resource
                             TextEntry::make('architecture')
                                 ->label(trans('admin/node.architecture'))
                                 ->state(fn (Node $node) => $node->systemInformation()['architecture'] ?? trans('admin/node.unknown')),
+                            TextEntry::make('gpus')
+                                ->label(trans('admin/node.gpus'))
+                                ->state(fn (Node $node) => collect($node->gpus())->map(fn ($gpu) => "{$gpu['name']} ({$gpu['mode']}: {$gpu['device']})")->all() ?: trans('admin/node.none'))
+                                ->listWithLineBreaks(),
                             TextEntry::make('kernel')
                                 ->label(trans('admin/node.kernel'))
                                 ->state(fn (Node $node) => $node->systemInformation()['kernel_version'] ?? trans('admin/node.unknown')),

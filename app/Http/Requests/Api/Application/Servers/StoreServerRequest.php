@@ -56,6 +56,10 @@ class StoreServerRequest extends ApplicationApiRequest
             'limits.io' => $rules['io'],
             /** Physical CPU threads the container is pinned to, such as `0`, `0-2` or `0,2`. Leave empty to let the node decide. */
             'limits.threads' => $rules['threads'],
+            /** GPU passthrough mode: `dri` (/dev/dri, Intel/AMD/nouveau) or `nvidia` (NVIDIA container toolkit). Leave empty to disable. */
+            'limits.gpu_driver' => $rules['gpu_driver'],
+            /** Comma separated GPU devices, such as `renderD128,card0` for `dri` or `0,1` for `nvidia`. Leave empty to expose all GPUs. */
+            'limits.gpu_devices' => $rules['gpu_devices'],
             /** CPU the server may use, where each 100 is one core. Use `0` for unlimited. */
             'limits.cpu' => $rules['cpu'],
 
@@ -138,6 +142,8 @@ class StoreServerRequest extends ApplicationApiRequest
             'io' => array_get($data, 'limits.io'),
             'cpu' => array_get($data, 'limits.cpu'),
             'threads' => array_get($data, 'limits.threads'),
+            'gpu_driver' => array_get($data, 'limits.gpu_driver'),
+            'gpu_devices' => array_get($data, 'limits.gpu_devices'),
             'skip_scripts' => array_get($data, 'skip_scripts', false),
             'allocation_id' => array_get($data, 'allocation.default'),
             'allocation_additional' => array_get($data, 'allocation.additional'),

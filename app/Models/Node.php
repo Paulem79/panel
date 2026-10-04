@@ -365,6 +365,26 @@ class Node extends Model implements Validatable
         return true;
     }
 
+    /**
+     * GPUs reported by Wings, if it is recent enough to report them.
+     *
+     * @return array<int, array{mode: string, driver: string, device: string, name: string, pci_id: string}>
+     */
+    public function gpus(): array
+    {
+        return $this->systemInformation()['gpus'] ?? [];
+    }
+
+    /**
+     * Device identifiers usable for the given passthrough mode (`dri` or `nvidia`).
+     *
+     * @return string[]
+     */
+    public function gpuDevices(?string $mode): array
+    {
+        return collect($this->gpus())->where('mode', $mode)->pluck('device')->values()->all();
+    }
+
     /** @return array<mixed> */
     public function systemInformation(): array
     {

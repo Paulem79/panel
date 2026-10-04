@@ -55,6 +55,8 @@ class ServerFactory extends Factory
             'io' => 500,
             'cpu' => 0,
             'threads' => null,
+            'gpu_driver' => null,
+            'gpu_devices' => null,
             'oom_killer' => false,
             'startup' => '/bin/bash echo "hello world"',
             'image' => 'foo/bar:latest',

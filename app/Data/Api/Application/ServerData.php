@@ -74,6 +74,8 @@ final class ServerData extends ApiResource
                 'io' => $model->io,
                 'cpu' => $model->cpu,
                 'threads' => $model->threads,
+                'gpu_driver' => $model->gpu_driver,
+                'gpu_devices' => $model->gpu_devices,
                 // This field is deprecated, please use "oom_killer".
                 'oom_disabled' => !$model->oom_killer,
                 'oom_killer' => $model->oom_killer,

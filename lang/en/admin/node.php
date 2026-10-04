@@ -43,6 +43,7 @@ return [
     'cpu_threads' => 'CPU Threads',
     'architecture' => 'Architecture',
     'kernel' => 'Kernel',
+    'gpus' => 'GPUs',
     'unknown' => 'Unknown',
     'latest' => '(Latest: :version)',
     'node_uuid' => 'Node UUID',

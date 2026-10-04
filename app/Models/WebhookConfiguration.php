@@ -490,6 +490,8 @@ class WebhookConfiguration extends Model
             'database_limit' => 5,
             'allocation_limit' => 5,
             'threads' => null,
+            'gpu_driver' => null,
+            'gpu_devices' => null,
             'backup_limit' => 5,
             'status' => null,
             'installed_at' => '2025-09-06T03:02:31.000000Z',

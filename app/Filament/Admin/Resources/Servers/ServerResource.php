@@ -22,6 +22,7 @@ use App\Filament\Components\StateCasts\ServerConditionStateCast;
 use App\Models\Allocation;
 use App\Models\Egg;
 use App\Models\Mount;
+use App\Models\Node;
 use App\Models\Server;
 use App\Models\User;
 use App\Repositories\Daemon\DaemonServerRepository;
@@ -482,6 +483,40 @@ class ServerResource extends Resource
                                                 ->separator()
                                                 ->splitKeys([','])
                                                 ->placeholder(trans('admin/server.pin_help')),
+                                        ]),
+                                    Grid::make()
+                                        ->columns(4)
+                                        ->columnSpanFull()
+                                        ->schema([
+                                            ToggleButtons::make('gpu_driver')
+                                                ->label(trans('admin/server.gpu'))->inlineLabel()->inline()
+                                                ->default('none')
+                                                ->afterStateUpdated(fn (Set $set) => $set('gpu_devices', []))
+                                                ->formatStateUsing(fn ($state) => $state ?: 'none')
+                                                ->dehydrateStateUsing(fn ($state) => in_array($state, ['dri', 'nvidia'], true) ? $state : null)
+                                                ->live()
+                                                ->options([
+                                                    'none' => trans('admin/server.disabled'),
+                                                    'dri' => trans('admin/server.gpu_dri'),
+                                                    'nvidia' => trans('admin/server.gpu_nvidia'),
+                                                ])
+                                                ->colors([
+                                                    'none' => 'success',
+                                                    'dri' => 'warning',
+                                                    'nvidia' => 'warning',
+                                                ])
+                                                ->columnSpan(2),
+
+                                            TagsInput::make('gpu_devices')
+                                                ->dehydratedWhenHidden()
+                                                ->dehydrateStateUsing(fn ($state) => filled($state) ? (is_array($state) ? implode(',', $state) : $state) : null)
+                                                ->hidden(fn (Get $get) => !in_array($get('gpu_driver'), ['dri', 'nvidia'], true))
+                                                ->label(trans('admin/server.gpu_devices'))->inlineLabel()
+                                                ->columnSpan(2)
+                                                ->separator()
+                                                ->splitKeys([','])
+                                                ->suggestions(fn (Get $get) => Node::find($get('node_id'))?->gpuDevices($get('gpu_driver')) ?? [])
+                                                ->placeholder(trans('admin/server.gpu_help')),
                                         ]),
                                     ToggleButtons::make('swap_support')
                                         ->live()

@@ -60,6 +60,8 @@ use Psr\Http\Message\ResponseInterface;
  * @property int|null $database_limit
  * @property int|null $allocation_limit
  * @property string|null $threads
+ * @property string|null $gpu_driver
+ * @property string|null $gpu_devices
  * @property int $backup_limit
  * @property ServerState|null $status
  * @property Carbon|null $installed_at
@@ -176,6 +178,8 @@ class Server extends Model implements HasAvatar, Validatable
         'io' => ['required', 'numeric', 'between:0,1000'],
         'cpu' => ['required', 'numeric', 'min:0'],
         'threads' => ['nullable', 'regex:/^[0-9-,]+$/'],
+        'gpu_driver' => ['nullable', 'in:dri,nvidia'],
+        'gpu_devices' => ['nullable', 'regex:/^[A-Za-z0-9,\-]+$/'],
         'oom_killer' => ['sometimes', 'boolean'],
         'disk' => ['required', 'numeric', 'min:0'],
         'allocation_id' => ['sometimes', 'nullable', 'unique:servers', 'exists:allocations,id'],

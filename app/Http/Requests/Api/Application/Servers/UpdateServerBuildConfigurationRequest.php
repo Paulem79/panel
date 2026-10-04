@@ -32,6 +32,10 @@ class UpdateServerBuildConfigurationRequest extends ServerWriteRequest
             'limits.cpu' => $this->requiredToOptional($rules['cpu']),
             /** Physical CPU threads the container is pinned to, such as `0`, `0-2` or `0,2`. */
             'limits.threads' => $this->requiredToOptional($rules['threads']),
+            /** GPU passthrough mode: `dri` or `nvidia`. */
+            'limits.gpu_driver' => $this->requiredToOptional($rules['gpu_driver']),
+            /** Comma separated GPU devices. Leave empty to expose all GPUs. */
+            'limits.gpu_devices' => $this->requiredToOptional($rules['gpu_devices']),
             /** Disk space the server may use, in MiB. Use `0` for unlimited. */
             'limits.disk' => $this->requiredToOptional($rules['disk']),
 

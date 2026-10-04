@@ -51,6 +51,7 @@ class ServerConfigurationStructureService
      *         io_weight: int,
      *         cpu_limit: int,
      *         threads: ?string,
+     *         gpu: ?array{driver: string, devices: string[]},
      *         disk_space: int,
      *         oom_killer: bool,
      *     },
@@ -86,6 +87,10 @@ class ServerConfigurationStructureService
                 'io_weight' => $server->io,
                 'cpu_limit' => $server->cpu,
                 'threads' => $server->threads,
+                'gpu' => $server->gpu_driver ? [
+                    'driver' => $server->gpu_driver,
+                    'devices' => array_values(array_filter(explode(',', $server->gpu_devices ?? ''))),
+                ] : null,
                 'disk_space' => (int) round(config('panel.use_binary_prefix') ? $server->disk : $server->disk / 1.048576),
                 'oom_killer' => $server->oom_killer,
             ],
